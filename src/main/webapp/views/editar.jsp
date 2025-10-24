@@ -12,19 +12,23 @@
  <form action="empleados" method="post">
   <c:set var="empleado" value="${empleados}"></c:set>
   <input type="hidden" name="opcion" value="editar">
-  <input type="hidden" name="id" value="${empleados.dni}">
+  <input type="hidden" name="dni" value="${empleados.dni}">
   <table border="1">
    <tr>
     <td>Nombre:</td>
     <td><input type="text" name="nombre" size="50" value="${empleados.nombre}"></td>
    </tr>
    <tr>
-    <td>Cantidad:</td>
-    <td><input type="text" name="cantidad" size="50" value="${empleados.categoria}"></td>
+    <td>Sexo:</td>
+    <td><input type="text" name="sexo" size="1" value="${empleados.sexo}"></td>
    </tr>
    <tr>
-    <td>Precio:</td>
-    <td><input type="text" name="precio" size="50" value="${empleados.anios}"></td>
+    <td>Categoria:</td>
+    <td><input type="number" name="categoria" size="1" min="1" max="10" value="${empleados.categoria}"></td>
+   </tr>
+   <tr>
+    <td>anios:</td>
+    <td><input type="number" name="anios" size="2" min="0" value="${empleados.anios}"></td>
    </tr>
   </table>
   <input type="submit" value="Guardar">

@@ -47,56 +47,35 @@ public class DAO {
 
 	// editar empleado
 	public boolean editar(Empleados empleado) throws SQLException {
-		String sql = null;
-		estadoOperacion = false;
-		connection = obtenerConexion();
-		try {
-			connection.setAutoCommit(false);
-			sql = "UPDATE empleados SET nombre=?, cantidad=?, precio=?, fecha_actualizar=? WHERE id=?";
-			statement = connection.prepareStatement(sql);
+	    String sql = null;
+	    estadoOperacion = false;
+	    connection = obtenerConexion();
 
-			statement.setString(1, empleado.getDni());
-			statement.setString(2, empleado.getNombre());
-			statement.setString(3, String.valueOf(empleado.getSexo()));
-			statement.setInt(4, empleado.getCategoria());
-			statement.setInt(5, empleado.getAnios());
+	    try {
+	        connection.setAutoCommit(false);
+	        sql = "UPDATE empleados SET nombre=?, sexo=?, categoria=?, anios=? WHERE dni=?";
+	        statement = connection.prepareStatement(sql);
 
-			estadoOperacion = statement.executeUpdate() > 0;
-			connection.commit();
-			statement.close();
-			connection.close();
+	        statement.setString(1, empleado.getNombre());
+	        statement.setString(2, String.valueOf(empleado.getSexo()));
+	        statement.setInt(3, empleado.getCategoria());
+	        statement.setInt(4, empleado.getAnios());
+	        statement.setString(5, empleado.getDni());
 
-		} catch (SQLException e) {
-			connection.rollback();
-			e.printStackTrace();
-		}
+	        estadoOperacion = statement.executeUpdate() > 0;
+	        connection.commit();
+	        statement.close();
+	        connection.close();
+	    	
+	      
+	       } catch (SQLException e) {
+	        connection.rollback();
+	        e.printStackTrace();
+	       }
 
-		return estadoOperacion;
+	    return estadoOperacion;
 	}
 
-	// eliminar producto
-	public boolean eliminar(int idEmpleado) throws SQLException {
-		String sql = null;
-		estadoOperacion = false;
-		connection = obtenerConexion();
-		try {
-			connection.setAutoCommit(false);
-			sql = "DELETE FROM empleados WHERE id=?";
-			statement = connection.prepareStatement(sql);
-			statement.setInt(1, idEmpleado);
-
-			estadoOperacion = statement.executeUpdate() > 0;
-			connection.commit();
-			statement.close();
-			connection.close();
-
-		} catch (SQLException e) {
-			connection.rollback();
-			e.printStackTrace();
-		}
-
-		return estadoOperacion;
-	}
 
 	// obtener lista de Empleados
 	public List<Empleados> obtenerEmpleados() throws SQLException {
@@ -127,36 +106,57 @@ public class DAO {
 
 		return listaEmpleados;
 	}
+		
+	
+	public int obtenerSueldoPorDni(String dniEmpleado) throws SQLException {
+	       int sueldo = -1;
+	       String sql = "SELECT sueldo FROM nominas WHERE dni=?";
+	       connection = obtenerConexion();
+	       try {
+	           statement = connection.prepareStatement(sql);
+	           statement.setString(1, dniEmpleado);
+	           ResultSet resultSet = statement.executeQuery();
+	           if (resultSet.next()) {
+	               sueldo = resultSet.getInt("sueldo");
+	           }
+	           statement.close();
+	           connection.close();
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }
+	       return sueldo;
+	   }
 
+	
 	// obtener empleado
-	public Empleados obtenerProducto(int Dni) throws SQLException {
+	public Empleados obtenerEmpleado(String Dni) throws SQLException {
 		ResultSet resultSet = null;
-		Empleados p = new Empleados();
+		Empleados e = new Empleados();
 
 		String sql = null;
 		estadoOperacion = false;
 		connection = obtenerConexion();
 
 		try {
-			sql = "SELECT * FROM productos WHERE id =?";
+			sql = "SELECT * FROM empleados WHERE dni =?";
 			statement = connection.prepareStatement(sql);
-			statement.setInt(1, Dni);
+			statement.setString(1, Dni);
 
 			resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
-				p.setDni(resultSet.getString(1));
-				p.setNombre(resultSet.getString(2));
-				p.setSexo(resultSet.getString(3).charAt(0));
-				p.setCategoria(resultSet.getInt(4));
-				p.setAnios(resultSet.getInt(5));
+				e.setDni(resultSet.getString(1));
+				e.setNombre(resultSet.getString(2));
+				e.setSexo(resultSet.getString(3).charAt(0));
+				e.setCategoria(resultSet.getInt(4));
+				e.setAnios(resultSet.getInt(5));
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException x) {
+			x.printStackTrace();
 		}
 
-		return p;
+		return e;
 	}
 
 	// obtener conexion pool
