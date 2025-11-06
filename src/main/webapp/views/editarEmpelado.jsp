@@ -11,7 +11,7 @@
 <body>
     <h1>Editar empleado</h1>
 
-    <!-- Formulario para buscar por DNI -->
+    
     <form action="app" method="get">
         <input type="hidden" name="opcion" value="editarPorDni">
         <label for="dni">DNI:</label>
@@ -52,7 +52,7 @@
                 </tr>
             </table>
             <c:if test="${not empty mensaje}">
-    			<p style="color: green; font-weight: bold;">${mensaje}</p>
+    			<p font-weight: bold;">${mensaje}</p>
 			</c:if>
             <br>
             <input type="submit" value="Guardar cambios">

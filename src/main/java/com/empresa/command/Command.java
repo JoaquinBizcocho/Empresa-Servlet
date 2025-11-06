@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
- // Patrón Command
+ // Patron Command
   
  // Interfaz base para todos los comandos.
  

@@ -43,32 +43,6 @@ public class FrontController extends HttpServlet {
         }
     }
         
-        
-        /*
-        // Dependiendo de la opcion, se llama al método adecuado
-        switch (opcion) {
-            case "listar":
-            	ec.listar(request, response);
-                break;
-
-            case "buscarPorDni":
-                ec.buscarPorDni(request, response);
-                break;
-
-            case "editarPorDni":
-                ec.editarPorDni(request, response);
-                break;
-
-            case "actualizarEmpleado":
-                ec.actualizarEmpleado(request, response);
-                break;
-
-            default:
-                // Si no se reconoce la opcion, se redirige a una página de error
-                response.sendRedirect("views/error.jsp");
-                break;
-        }
-    }*/
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
