@@ -36,9 +36,12 @@
                     <td><input type="text" name="nombre" value="${empleado.nombre}" required></td>
                 </tr>
                 <tr>
-                    <td>Sexo:</td>
-    				<td><input type="text" name="sexo" size="1" value="${empleados.sexo}"></td>
-                </tr>
+				<td>Sexo:</td>
+				<td><select type="text" name="sexo">
+						<option value="M">M</option>
+						<option value="F">F</option>
+				</select></td>
+				</tr>
                 <tr>
                     <td>Categoria</td>
                     <td><input type="number" name="categoria" value="${empleado.categoria}" required></td>
@@ -48,6 +51,9 @@
                     <td><input type="number" name="anios" value="${empleado.anios}" required></td>
                 </tr>
             </table>
+            <c:if test="${not empty mensaje}">
+    			<p style="color: green; font-weight: bold;">${mensaje}</p>
+			</c:if>
             <br>
             <input type="submit" value="Guardar cambios">
         </form>

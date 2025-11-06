@@ -21,7 +21,7 @@
     <br/>
 
     
-        <h2>Resultado de la b�squeda</h2>
+        <h2>Resultado de la busqueda</h2>
         <table border="1">
             <tr>
                 <td>Dni</td>
