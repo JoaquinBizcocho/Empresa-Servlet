@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.empresa.empleados.Empleados;
 import com.empresa.empladoDAO.DAO;
 import com.empresa.empladoDAO.DAOFactory;
-import com.empresa.NominaMetodo.NominaMetodos;
+import com.empresa.Strategy.*;
 
 //Buscar sueldo base de empleado por DNI
 public class BuscarPorDniCommand implements Command {
@@ -22,11 +22,21 @@ public class BuscarPorDniCommand implements Command {
 
 	    // Si el empleado existe
 	    if (empleado != null) {
-	        double sueldoBase = NominaMetodos.sueldo(empleado); // Se calcula su sueldo base usando la clase NominaMetodos
 	        
-	     // Se guardan los datos del empleado y su sueldo en el request
+	     // Creamos una instancia de calculadora que usaremos para ejecutar nuestros calculos
+            Calculadora calculadora = new Calculadora();
+
+            // Ponemos la estrategia que queramos usar
+            // Aqui puedes cambiar la estrategia por cualquier otra
+            calculadora.setEstrategia(new CalculoSalarioCompleto());
+
+            // Calculamos el salario usando la estrategia elegida
+            double sueldoCalculado = calculadora.ejecutarCalculo(empleado);
+	        
+	        
+	     // Se guardan los datos del empleado y su sueldo calculado con el metodo strategy en el request
 	        request.setAttribute("empleado", empleado);
-	        request.setAttribute("sueldoBase", sueldoBase);
+	        request.setAttribute("sueldoBase", sueldoCalculado);
 	    }
 		// Se reenvía la información al JSP que muestra los datos del empleado buscado
 	    request.getRequestDispatcher("/views/buscarEmpleado.jsp").forward(request, response);

@@ -29,12 +29,10 @@ public class FrontController extends HttpServlet {
         // Se obtiene la acción desde el parámetro 'opcion'
         String opcion = request.getParameter("opcion");
         
-       
-
-        // Se crea una instancia del controlador correspondiente
-        //EmpleadoController ec = new EmpleadoController();
+        //obtiene un objeto nuevo dependiendo de la opcion
         Command command = FactoryCommand.getCommand(opcion);
-
+        
+        //Si ha logrado obtener un objeto lo ejecuta, si no lo ha conseguido le manda a la pagina de error
         if(command != null) {
         	command.ejecutar(request, response);
         } else {
